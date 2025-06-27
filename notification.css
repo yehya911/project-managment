@@ -1,0 +1,40 @@
+/* Notification Container */
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}
+
+/* Individual Notification */
+.notification {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+/* Show Animation */
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Close Button */
+.notification .close-btn {
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.notification-link{
+    color: white;
+    text-decoration: none;
+}

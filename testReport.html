@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="testReport.css">
+</head>
+<body>
+    <button class="report-button" onclick="generateReport()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M16 13H8"/>
+            <path d="M16 17H8"/>
+            <path d="M10 9H8"/>
+        </svg>
+        Generate Report
+    </button>
+    <div id="report-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeReportModal()">&times;</span>
+            <div class="report-container" id="report">
+                <h2 class="reportHeading">Summary</h2>
+                <table id="report-summary"></table>
+                <div id="report-body"></div>
+            </div>
+            <button class="print-button" onclick="generatePDF()">Print</button>
+        </div>
+    </div>
+    <script src="config.js"></script>
+    <script src="testReport.js"></script>
+</body>
+</html>

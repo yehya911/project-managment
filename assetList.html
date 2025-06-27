@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset list</title>
+    <link rel="stylesheet" href="assetList.css">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <div>
+        <div id="sidebar" class="sidebar"></div>
+        <div class="main-container">
+            <div class="main-content">
+                <div class="header">
+                    <div>
+                        <h1>Assets List</h1>
+                    </div>
+                    <a href="index.html" class="back-button">Dashboard</a>
+                </div>
+                <div class="controls">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search by name..." class="search-input">
+                        <select class="category-select search-select" id="asset-search-category">
+                            <option value="">Select Category</option>
+                        </select>
+                        <select class="search-select department-select" id="department-select">
+                            <option value="">Select Department</option>
+                        </select>
+                        <button type="button" class="cancel-btn cancel-button">Clear Search</button>
+                        <button type="button" class="add-assest-button" onclick="addAsset()">Add Asset</button>
+                        <button class="report-button" onclick="generateReport()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6"/>
+                                <path d="M16 13H8"/>
+                                <path d="M16 17H8"/>
+                                <path d="M10 9H8"/>
+                            </svg>
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container scrollable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Brand</th>
+                                <th>Department</th>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Purchase Date</th>
+                                <th>Price</th>
+                                <th>Location</th>
+                                <th>Room</th>
+                                <th>Status</th>
+                                <th>Bar code</th>
+                                <th>Condition</th>
+                                <th>Serial number</th>
+                                <th>Description</th>
+                                <th>Expected life</th>
+                                <th>Warranty</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assets">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-container" id="assetForm">
+                    <h2 class="form-title">Edit Asset</h2>
+                    <form class="form-grid" onsubmit="handleSubmit(event)">
+                        <input type="hidden" id="id">
+                        <input type="text" id="name" name="name" placeholder="Name" class="form-input" required>
+                        <select class="form-select department-select" id="department" name="department" required>
+                            <option value="">Select Department</option>
+                        </select>
+                        <select class="category-select form-select category-select" id="category" name="category" required>
+                            <option value="">Select Category</option>
+                        </select>
+                        <select class="form-select type-select" id="type" name="type" required>
+                            <option value="">Select Type</option>
+                        </select>
+                        <div>
+                            <label for="purchase_date">Purchase Date:</label>
+                            <input type="date" id="purchase_date" name="purchase_date" class="form-input">
+                        </div>
+                        <input type="number" id="price" name="price" placeholder="Price" class="form-input">
+                        <select class="form-select location-select" id="location" name="location" required>
+                            <option value="">Select Location</option>
+                        </select>
+                        <input type="text" id="room" name="room" placeholder="Room" class="form-input">
+                        <select class="form-select status-select" id="status" name="status" required>
+                            <option value="">Select Status</option>
+                        </select>
+                        <input type="text" id="bar_code" name="bar_code" placeholder="Bar code" class="form-input">
+                        <select class="form-select condition-select" id="condition" name="condition" required>
+                            <option value="">Select Condition</option>
+                        </select>
+                        <input type="text" id="serial_number" name="serial_number" placeholder="Serial number" class="form-input">
+                        <input type="text" id="expected_life" name="expected_life" placeholder="Expected life" class="form-input">
+                        <input type="text" id="warranty" name="warranty" placeholder="Warranty" class="form-input">
+                        <textarea id="description" name="description" placeholder="Description" class="form-input form-textarea"></textarea>
+                        <div class="form-buttons">
+                            <div>
+                                <button type="submit" class="save-button">Save</button>
+                                <button type="button" class="cancel-button" onclick="closeEditForm()">Close</button>
+                            </div>
+                            <button type="button" class="delete-button" onclick="deleteAsset(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="report-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeReportModal()">&times;</span>
+                        <div class="report-container" id="report">
+                            <table id="report-summary"></table>
+                            <div id="report-body"></div>
+                        </div>
+                        <button class="print-button" onclick="generatePDF()">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="notification-container"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="assetList.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="notification.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

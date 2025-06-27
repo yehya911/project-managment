@@ -1,0 +1,90 @@
+#projects-list .item-list {
+    display: grid;
+    gap: 10px;
+}
+
+.scrollable-projects {
+    max-height: 450px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#projects-list .item-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+#projects-list .item-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#projects-list .item-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+#projects-list .item-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+#projects-list .item-card strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.header {
+    background-color: #00b9e72c;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 183, 255, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    color: #1a237e;
+}
+
+.back-button {
+    padding: 8px 16px;
+    background-color: #1a237e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.controls{
+    display: flex;
+    justify-content: end;
+}
+
+.add-form button {
+    padding: 8px 10px;
+    background-color: #00a025;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.add-form .cancel-btn {
+    padding: 8px 10px;
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

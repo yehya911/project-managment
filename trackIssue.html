@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracking</title>
+    <link href="dashboard.css" rel="stylesheet">
+    <link href="trackIssue.css" rel="stylesheet">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h1>Issue Tracking</h1>
+            </div>
+            <a href="index.html" class="back-button">Dashboard</a>
+        </div>
+        <div id="container">
+            <div class="issue-card" id="issueDetails">
+            </div>
+            <!-- <a href="http://localhost:8080/bills/test.pdf" target="_blank">Bill File</a> -->
+        </div>
+        <div class="tracking-form" id="addTrackingForm" style="display: none;">
+            <h2>Add Tracking Data</h2>
+            <form id="trackingForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="maintenanceType">Maintenance Type</label>
+                    <select id="maintenanceType" class="form-control">
+                        <option value="">Select Maintenance Type</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="supplier">Supplier</label>
+                    <select id="supplier" class="form-control">
+                        <option value="">Select Supplier</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cost">Cost ($)</label>
+                    <input type="number" id="cost" class="form-control" placeholder="Enter cost" required>
+                </div>
+                <div class="form-group">
+                    <label for="workingDate">Working Time (Days)</label>
+                    <input type="number" id="workingDate" class="form-control" placeholder="Enter working time in days">
+                </div>
+                <div class="form-group">
+                    <label for="billFile">Bill File</label>
+                    <input type="file" id="billFile" class="form-control">
+                </div>
+                <div>
+                    <button type="button" class="btn-primary" onclick="submitTrackingData()">Add</button>
+                    <button class="" onclick="closeTrackingForm()">Close</button>
+                </div>
+            </form>
+        </div>
+        <div id="billFilesModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeBillFilesModal()">&times;</span>
+                <h3>Bill Files</h3>
+                <ul id="billFilesContainer"></ul>
+            </div>
+        </div>
+        <div id="notification-container"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="trackIssue.js"></script>
+    <script src="notification.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management - Settings</title>
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Project Settings</h1>
+            <a href="index.html" class="back-button">Dashboard</a>
+        </div>
+        <div class="definition-grid">
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Projects</h2>
+                    <button class="add-button" onclick="toggleForm('project-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="project-list" class="list scrollable">
+                    </ul>
+                    <form onsubmit="handleAddProject(event)" id="project-form" class="add-form">
+                        <input type="text" id="project-name" placeholder="Project Name">
+                        <input type="text" id="project-description" placeholder="Project description">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('project-form')">Cancel</button>
+                    </form>
+                    <form id="project-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-project-id">
+                        <input type="text" id="edit-project-name" placeholder="Project Name">
+                        <input type="text" id="edit-project-description" placeholder="Project description">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditProject()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('project-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteProject(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Departments</h2>
+                    <button class="add-button" onclick="toggleForm('department-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="department-list" class="list scrollable">
+                    </ul>
+                    <form onsubmit="handleAddDepartment(event)" id="department-form" class="add-form">
+                        <input type="text" id="department-name" placeholder="Department Name">
+                        <input type="text" id="department-code" placeholder="Department Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('department-form')">Cancel</button>
+                    </form>
+                    <form id="department-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-department-id">
+                        <input type="text" id="edit-department-name" placeholder="Department Name">
+                        <input type="text" id="edit-department-code" placeholder="Department Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditDepartment()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('department-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteDepartment(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Users</h2>
+                    <button class="add-button" onclick="toggleForm('user-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="user-list" class="list scrollable">
+                    </ul>
+                    <form onsubmit="handleAddUser(event)" id="user-form" class="add-form">
+                        <input type="text" id="user-name" placeholder="User Name">
+                        <select id="user-role">
+                            <option value="">Select User Role</option>
+                        </select>
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('user-form')">Cancel</button>
+                    </form>
+                    <form id="user-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-user-id">
+                        <input type="text" id="edit-user-name" placeholder="User Name">
+                        <select id="edit-user-role">
+                            <option value="">Select User Role</option>
+                        </select>
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditUser()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('user-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteUser(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Issue Status</h2>
+                    <button class="add-button" onclick="toggleForm('status-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="status-list" class="list scrollable">
+                        <li>
+                            Laptop
+                            <div class="action-buttons">
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <form onsubmit="handleAddStatus(event)" id="status-form" class="add-form">
+                        <input type="text" id="status-name" placeholder="Status Name">
+                        <input type="text" id="status-code" placeholder="Status Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('status-form')">Cancel</button>
+                    </form>
+                    <form id="status-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-status-id">
+                        <input type="text" id="edit-status-name" placeholder="Status Name">
+                        <input type="text" id="edit-status-code" placeholder="Status Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditStatus()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('status-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteStatus(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Issue Type</h2>
+                    <button class="add-button" onclick="toggleForm('issueType-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="issueType-list" class="list scrollable">
+                        <li>
+                            New
+                            <div class="action-buttons">
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <form onsubmit="handleAddIssueType(event)" id="issueType-form" class="add-form">
+                        <input type="text" id="issueType-name" placeholder="Issue Type Name">
+                        <input type="text" id="issueType-code" placeholder="Issue Type Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('issueType-form')">Cancel</button>
+                    </form>
+                    <form id="issueType-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-issueType-id">
+                        <input type="text" id="edit-issueType-name" placeholder="Issue Type Name">
+                        <input type="text" id="edit-issueType-code" placeholder="Issue Type Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditIssueType()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('issueType-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteIssueType(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Priority</h2>
+                    <button class="add-button" onclick="toggleForm('priority-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="priority-list" class="list scrollable">
+                        <li>
+                            New
+                            <div class="action-buttons">
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </div>
+                        </li>
+                        <li>
+                            Good
+                            <div class="action-buttons">
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <form onsubmit="handleAddPriority(event)" id="priority-form" class="add-form">
+                        <input type="text" id="priority-name" placeholder="Priority Name">
+                        <input type="text" id="priority-code" placeholder="Priority Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('priority-form')">Cancel</button>
+                    </form>
+                    <form id="priority-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-priority-id">
+                        <input type="text" id="edit-priority-name" placeholder="Priority Name">
+                        <input type="text" id="edit-priority-code" placeholder="Priority Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditPriority()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('priority-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deletePriority(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Maintenance</h2>
+                    <button class="add-button" onclick="toggleForm('maintenance-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="maintenance-list" class="list scrollable">
+                    </ul>
+                    <form onsubmit="handleAddMaintenance(event)" id="maintenance-form" class="add-form">
+                        <input type="text" id="maintenance-name" placeholder="Maintenance Name">
+                        <input type="text" id="maintenance-code" placeholder="Maintenance Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('maintenance-form')">Cancel</button>
+                    </form>
+                    <form id="maintenance-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-maintenance-id">
+                        <input type="text" id="edit-maintenance-name" placeholder="Maintenance Name">
+                        <input type="text" id="edit-maintenance-code" placeholder="Maintenance Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditMaintenance()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('maintenance-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteMaintenance(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="definition-card">
+                <div class="card-header">
+                    <h2>Supplier</h2>
+                    <button class="add-button" onclick="toggleForm('supplier-form')">+</button>
+                </div>
+                <div class="card-content">
+                    <ul id="supplier-list" class="list scrollable">
+                    </ul>
+                    <form onsubmit="handleAddSupplier(event)" id="supplier-form" class="add-form">
+                        <input type="text" id="supplier-name" placeholder="Supplier Name">
+                        <input type="text" id="supplier-code" placeholder="Supplier Code">
+                        <button>Add</button>
+                        <button type="button" class="cancel-btn" onclick="toggleForm('supplier-form')">Cancel</button>
+                    </form>
+                    <form id="supplier-edit-form" class="add-form" style="display: none;">
+                        <input type="hidden" id="edit-supplier-id">
+                        <input type="text" id="edit-supplier-name" placeholder="Supplier Name">
+                        <input type="text" id="edit-supplier-code" placeholder="Supplier Code">
+                        <div class="btn-container">
+                            <div>
+                                <button type="button" onclick="saveEditSupplier()">Save</button>
+                                <button type="button" class="cancel-btn" onclick="toggleForm('supplier-edit-form')">Cancel</button>
+                            </div>
+                            <button class="cancel-btn" onclick="deleteSupplier(event)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="notification-container"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="settings.js"></script>
+    <script src="notification.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

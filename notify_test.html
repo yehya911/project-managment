@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Notification</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <h2>Send Notification</h2>
+    <button id="sendNotification">Send Notification</button>
+
+    <h3>Notifications:</h3>
+    <div id="notifications"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Send notification using AJAX when the button is clicked
+            $('#sendNotification').click(function() {
+                $.post('notify.php', function(response) {
+                    console.log(response); // Logs "Notification sent!"
+                });
+            });
+
+            // Enable Pusher (replace with your Pusher credentials)
+            Pusher.logToConsole = true;
+            var pusher = new Pusher('bc2dc511ba3503757dd9', {
+                cluster: 'ap2'
+            });
+
+            // Subscribe to the notifications channel
+            var channel = pusher.subscribe('notifications-channel');
+
+            // Listen for 'new-issue' event
+            channel.bind('new-issue', function(data) {
+                $('#notifications').append('<p>' + data.message + '</p>');
+            });
+        });
+    </script>
+</body>
+</html>

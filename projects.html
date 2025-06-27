@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project list</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="projects.css">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h1>Projects List</h1>
+            </div>
+            <a href="index.html" class="back-button">Dashboard</a>
+        </div>
+        <div>
+            <div id="projects-list" class="scrollable-projects">
+                <div class="item-card">
+                    <h3>Website Redesign</h3>
+                    <p>Modernize company website</p>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="add" onclick="toggleForm('project-form')">Add Project</button>
+        </div>
+        <form onsubmit="handleAddProject(event)" id="project-form" class="add-form hidden">
+            <input type="text" id="project-name" placeholder="Project Name">
+            <input type="text" id="project-description" placeholder="Project description">
+            <button>Add</button>
+            <button type="button" class="cancel-btn" onclick="toggleForm('project-form')">Close</button>
+        </form>
+        <form id="project-edit-form" class="add-form" style="display: none;">
+            <h2>Edit Project</h2>
+            <input type="hidden" id="edit-project-id">
+            <input type="text" id="edit-project-name" placeholder="Project Name">
+            <input type="text" id="edit-project-description" placeholder="Project description">
+            <div class="btn-container">
+                <div>
+                    <button type="button" onclick="saveEditProject()">Save</button>
+                    <button type="button" class="cancel-btn" onclick="toggleForm('project-edit-form')">Close</button>
+                </div>
+                <button class="cancel-btn" onclick="deleteProject(event)">Delete</button>
+            </div>
+        </form>
+        <div id="notification-container"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="projects.js"></script>
+    <script src="notification.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

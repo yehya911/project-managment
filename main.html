@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Management Workspace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Project Management Workspace</h1>
+        
+        <div class="button-group">
+            <button class="button" data-form="project-form">Add Project</button>
+            <button class="button" data-form="user-form">Add User</button>
+            <button class="button" data-form="department-form">Add Department</button>
+            <button class="button" data-form="status-form">Add Status</button>
+            <button class="button" data-form="device-type-form">Add Device Type</button>
+            <button class="button" data-form="device-form">Add Device</button>
+            <button class="button" data-form="issueType-form">Add Issue Type</button>
+            <button class="button" data-form="priority-form">Add Priority</button>
+        </div>
+
+        <form id="project-form" class="form" style="display: none;">
+            <h2>Add Project</h2>
+            <div class="form-group">
+                <label>Project Name</label>
+                <input id="project-name" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="project-description"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('project-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Project</button>
+            </div>
+        </form>
+
+        <form id="user-form" class="form" style="display: none;">
+            <h2>Add User</h2>
+            <div class="form-group">
+                <label>Name</label>
+                <input id="user-name" required>
+            </div>
+            <div class="form-group">
+                <label>Abbreviation</label>
+                <input id="user-abbreviation" required>
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select id="user-role" required>
+                    <option value="">Select Role</option>
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('user-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add User</button>
+            </div>
+        </form>
+
+        <form id="department-form" class="form" style="display: none;">
+            <h2>Add Department</h2>
+            <div class="form-group">
+                <label>Department Name</label>
+                <input id="department-name" required>
+            </div>
+            <div class="form-group">
+                <label>Department Code</label>
+                <input id="department-code" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('department-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Department</button>
+            </div>
+        </form>
+
+        <form id="status-form" class="form" style="display: none;">
+            <h2>Add Status</h2>
+            <div class="form-group">
+                <label>Status Name</label>
+                <input id="status-name" required>
+            </div>
+            <div class="form-group">
+                <label>Status Code</label>
+                <input id="status-code" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('status-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Status</button>
+            </div>
+        </form>
+
+        <form id="device-type-form" class="form" style="display: none;">
+            <h2>Add Device Type</h2>
+            <div class="form-group">
+                <label>Device Type</label>
+                <input id="device-type-name" required>
+            </div>
+            <div class="form-group">
+                <label>Device Type Code</label>
+                <input id="device-type-code" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('device-type-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Device Type</button>
+            </div>
+        </form>
+
+        <form id="device-form" class="form" style="display: none;">
+            <h2>Add Device</h2>
+            <div class="form-group">
+                <label>Device Name</label>
+                <input id="device-name" required>
+            </div>
+            <div class="form-group">
+                <label>Device Type</label>
+                <select id="device-type" required>
+                    <option value="">Select Device Type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select id="device-department" required>
+                    <option value="">Select Department</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('device-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Device</button>
+            </div>
+        </form>
+
+        <form id="issueType-form" class="form" style="display: none;">
+            <h2>Add Issue Type</h2>
+            <div class="form-group">
+                <label>Issue Type</label>
+                <input id="issue-type-name" required>
+            </div>
+            <div class="form-group">
+                <label>Issue Type Code</label>
+                <input id="issue-type-code" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('issue-type-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Issue Type</button>
+            </div>
+        </form>
+
+        <form id="priority-form" class="form" style="display: none;">
+            <h2>Add Priority</h2>
+            <div class="form-group">
+                <label>Priority Name</label>
+                <input id="priority-name" required>
+            </div>
+            <div class="form-group">
+                <label>Priority Code</label>
+                <input id="priority-code" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('priority-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Priority</button>
+            </div>
+        </form>
+
+        <div class="container">
+            <h2>Current Projects</h2>
+            <div id="projects-list" class="scrollable-projects">
+                <div class="item-card">
+                    <h3>Website Redesign</h3>
+                    <p>Modernize company website</p>
+                </div>
+                <div class="item-card">
+                    <h3>CRM Migration</h3>
+                    <p>Upgrade to cloud-based CRM</p>
+                </div>
+            </div>
+        </div>
+        <form id="project-edit-form" class="form" style="display: none;">
+            <h2>Edit Project</h2>
+            <div class="form-group">
+                <label>Project Name</label>
+                <input id="project-edit-name" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="project-edit-description"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('project-edit-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Save Changes</button>
+            </div>
+        </form>
+
+        <div class="container">
+            <div class="section-header">
+                <h2>Current Issues</h2>
+                <button id="addIssue-button" class="button" onclick="toggleForm('issue-form', true)">Add Issue</button>
+            </div>
+            <div id="issues-list">No issues added yet</div>
+        </div>
+        <form id="issue-form" class="form" style="display: none;">
+            <h2>Add Issue</h2>
+            <div class="form-group">
+                <label>Project</label>
+                <select id="issue-project" required>
+                    <option value="">Select Project</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Issue Subject</label>
+                    <input id="issue-subject" required>
+                </div>
+                <div class="form-group">
+                    <label>Issue Type</label>
+                    <select id="issue-type" required>
+                        <option value="">Select Issue Type</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="issue-status" required>
+                        <option value="">Select Status</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="issue-priority" required>
+                        <option value="">Select Priority</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="issue-department" required>
+                        <option value="">Select Department</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Device</label>
+                    <select id="issue-device" required>
+                        <option value="">Select Device</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Date Created</label>
+                <input type="date" id="issue-date-created" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" id="issue-due-date" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Registered By</label>
+                <select id="issue-registered-by" required>
+                    <option value="">Select User</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="issue-description"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('issue-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Add Issue</button>
+            </div>
+        </form>
+        <form id="issue-edit-form" class="form" style="display: none;">
+            <h2>Edit Issue</h2>
+            <div class="form-group">
+                <label>Project</label>
+                <select id="issue-edit-project" required>
+                    <option value="">Select Project</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Issue Subject</label>
+                    <input id="issue-edit-subject" required>
+                </div>
+                <div class="form-group">
+                    <label>Issue Type</label>
+                    <select id="issue-edit-type" required>
+                        <option value="">Select Issue Type</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="issue-edit-status" required>
+                        <option value="">Select Status</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="issue-edit-priority" required>
+                        <option value="">Select Priority</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="issue-edit-department" required>
+                        <option value="">Select Department</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Device</label>
+                    <select id="issue-edit-device" required>
+                        <option value="">Select Device</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Date Created</label>
+                <input type="date" id="issue-edit-date-created" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" id="issue-edit-due-date" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Registered By</label>
+                <select id="issue-edit-registered-by" required>
+                    <option value="">Select User</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="issue-edit-description"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="form-button cancel" onclick="hideForm('issue-edit-form')">Cancel</button>
+                <button type="submit" class="form-button submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    
+    <button id="search-issues-button" class="button" onclick="viewIssueSearchSection()">Search Issues</button>
+    <div id="search-issues-section" style="display: none;">
+        <h2>Search Issues</h2>
+        <form id="search-issues-form" class="issue-search-form">
+            <div class="form-group">
+                <label>Project</label>
+                <div class="search-field-container">
+                    <select id="search-project">
+                        <option value="">Select Project</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <div class="search-field-container">
+                    <select id="search-department">
+                        <option value="">Select Department</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <div class="search-field-container">
+                    <select id="search-status">
+                        <option value="">Select Status</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Priority</label>
+                <div class="search-field-container">
+                    <select id="search-priority">
+                        <option value="">Select Priority</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Due Date</label>
+                <div class="search-field-container">
+                    <input type="date" id="search-due-date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <div class="search-field-container">
+                    <input type="text" id="search-subject" placeholder="Enter subject">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="form-button submit">Search</button>
+                <button type="button" class="form-button cancel" onclick="hideSearchSection()">Cancel</button>
+            </div>
+        </form>
+        <div id="search-results">
+            <table id="issues-table">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Subject</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src= "config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

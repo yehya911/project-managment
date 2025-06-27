@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Assets</title>
+    <link rel="stylesheet" href="addAsset.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h1>Add Assets</h1>
+            </div>
+            <a href="index.html" class="back-button">Dashboard</a>
+        </div>
+        <div class="form-container show" id="assetForm">
+            <form class="form-grid" onsubmit="handleSubmit(event)">
+                <input type="text" id="name" name="name" placeholder="Name" class="form-input" required>
+                <input type="text" id="brand" name="brand" placeholder="Brand" class="form-input">
+                <select class="form-select department-select" id="department" name="department" required>
+                    <option value="">Select Department</option>
+                </select>
+                <select class="category-select form-select category-select" id="category" name="category" required>
+                    <option value="">Select Category</option>
+                </select>
+                <select class="form-select type-select" id="type" name="type" required>
+                    <option value="">Select Type</option>
+                </select>
+                <div>
+                    <label for="purchase_date">Purchase Date:</label>
+                    <input type="date" id="purchase_date" name="purchase_date" class="form-input">
+                </div>
+                <input type="number" id="price" name="price" placeholder="Price" class="form-input">
+                <select class="form-select location-select" id="location" name="location" required>
+                    <option value="">Select Location</option>
+                </select>
+                <input type="text" id="room" name="room" placeholder="Room" class="form-input">
+                <select class="form-select status-select" id="status" name="status" required>
+                    <option value="">Select Status</option>
+                </select>
+                <input type="text" id="bar_code" name="bar_code" placeholder="Bar code" class="form-input">
+                <select class="form-select condition-select" id="condition" name="condition" required>
+                    <option value="">Select Condition</option>
+                </select>
+                <input type="text" id="serial_number" name="serial_number" placeholder="Serial number" class="form-input">
+                <input type="text" id="expected_life" name="expected_life" placeholder="Expected life" class="form-input">
+                <input type="text" id="warranty" name="warranty" placeholder="Warranty" class="form-input">
+                <textarea id="description" name="description" placeholder="Description" class="form-input form-textarea"></textarea>
+                <div class="add-asset-buttons">
+                    <button type="submit" class="save-button">Save</button>
+                    <button type="button" class="back-button" onclick="backToAssets()">Back</button>
+                </div>
+            </form>
+        </div>
+        <div class="new-modal" id="department-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddDepartment(event)" id="department-form" class="add-form">
+                    <input type="text" id="department-name" placeholder="Department Name" required>
+                    <input type="text" id="department-code" placeholder="Department Code">
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('department-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="new-modal" id="category-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddCategory(event)" id="category-form" class="add-form">
+                    <input type="text" id="category-name" placeholder="Category Name" required>
+                    <input type="text" id="category-code" placeholder="Category Code">
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('category-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="new-modal" id="type-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddType(event)" id="type-form" class="add-form">
+                    <input type="text" id="type-name" placeholder="Type Name" required>
+                    <input type="text" id="type-code" placeholder="Type Code">
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('type-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="new-modal" id="location-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddLocation(event)" id="location-form" class="add-form">
+                    <input type="text" id="location-name" placeholder="Location Name" required>
+                    <input type="text" id="location-code" placeholder="Location Code">
+                    <select id="location-department" class="option-select">
+                        <option value="">Select Department</option>
+                    </select>
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('location-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="new-modal" id="status-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddStatus(event)" id="status-form" class="add-form">
+                    <input type="text" id="status-name" placeholder="Status Name" required>
+                    <input type="text" id="status-code" placeholder="Status Code">
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('status-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="new-modal" id="condition-modal">
+            <div class="modal-content">
+                <form onsubmit="handleAddCondition(event)" id="condition-form" class="add-form">
+                    <input type="text" id="condition-name" placeholder="Condition Name" required>
+                    <input type="text" id="condition-code" placeholder="Condition Code">
+                    <button>Add</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('condition-modal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div id="notification-container"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="addAsset.js"></script>
+    <script src="notification.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>
